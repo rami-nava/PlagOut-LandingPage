@@ -1,10 +1,12 @@
+<meta charset="utf-8">
 <title>Plag-Out</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<meta name="description" content="Plag-Out cruza la ubicacion de tus lotes con datos climaticos y modelos de grados dia para estimar el riesgo de plagas y avisarte antes de que aparezcan.">
+<meta name="description" content="Plag-Out cruza la ubicación de tus lotes con datos climáticos y modelos de grados día para estimar el riesgo de plagas y avisarte antes de que aparezcan.">
 <meta property="og:title" content="Plag-Out — Anticipa las plagas en tus cultivos">
-<meta property="og:description" content="No esperes a ver la plaga. Plag-Out calcula el riesgo dia a dia con el clima de tus lotes y te avisa antes.">
+<meta property="og:description" content="No esperes a ver la plaga. Plag-Out calcula el riesgo día a día con el clima de tus lotes y te avisa antes.">
 <meta property="og:type" content="website">
 <style>
 /* ============ TOKENS ============ */
@@ -39,11 +41,18 @@
   --risk-warn-soft:rgba(193,134,31,.13);
   --risk-danger-soft:rgba(173,69,49,.12);
 
-  /* bandas oscuras (hero / cta) */
-  --band-a:#264A2B; --band-b:#17301B;
-  --band-fg:#F6F1E4; --band-fg-2:#C6D3BC;
-  --band-line:rgba(246,241,228,.16);
-  --band-card:rgba(246,241,228,.07);
+  /* bandas (hero / cta) - siguen el tema */
+  --band-a:#E6EFDC; --band-b:#F7F3E7;
+  --band-fg:#243020; --band-fg-2:#5B6551;
+  --band-line:rgba(38,74,43,.18);
+  --band-card:rgba(255,253,247,.62);
+  --band-accent:#3F6B31;
+  --band-btn-bg:#264A2B; --band-btn-fg:#F6F1E4;
+  --band-hover:rgba(38,74,43,.08);
+  --band-input:rgba(255,253,247,.75); --band-input-focus:#FFFDF7;
+  --band-ph:rgba(91,101,81,.6);
+  --band-err:#A6402C;
+  --band-glow:rgba(42,35,24,.16);
 
   --shadow-sm:0 1px 2px rgba(42,35,24,.05);
   --shadow:0 2px 4px rgba(42,35,24,.05), 0 10px 28px rgba(42,35,24,.09);
@@ -79,6 +88,13 @@
     --band-fg:#F6F1E4; --band-fg-2:#B6C5AB;
     --band-line:rgba(246,241,228,.14);
     --band-card:rgba(246,241,228,.06);
+    --band-accent:#8FBF74;
+    --band-btn-bg:#F6F1E4; --band-btn-fg:#264A2B;
+    --band-hover:rgba(246,241,228,.1);
+    --band-input:rgba(23,48,27,.4); --band-input-focus:rgba(23,48,27,.65);
+    --band-ph:rgba(198,211,188,.55);
+    --band-err:#F0A895;
+    --band-glow:rgba(0,0,0,.42);
     --shadow-sm:0 1px 2px rgba(0,0,0,.3);
     --shadow:0 2px 4px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.38);
     --shadow-lg:0 6px 12px rgba(0,0,0,.3), 0 26px 60px rgba(0,0,0,.5);
@@ -103,10 +119,17 @@
   --risk-ok-soft:rgba(127,197,124,.16);
   --risk-warn-soft:rgba(224,171,69,.16);
   --risk-danger-soft:rgba(224,126,102,.16);
-  --band-a:#1E3D23; --band-b:#122616;
+    --band-a:#1E3D23; --band-b:#122616;
   --band-fg:#F6F1E4; --band-fg-2:#B6C5AB;
   --band-line:rgba(246,241,228,.14);
   --band-card:rgba(246,241,228,.06);
+  --band-accent:#8FBF74;
+  --band-btn-bg:#F6F1E4; --band-btn-fg:#264A2B;
+  --band-hover:rgba(246,241,228,.1);
+  --band-input:rgba(23,48,27,.4); --band-input-focus:rgba(23,48,27,.65);
+  --band-ph:rgba(198,211,188,.55);
+  --band-err:#F0A895;
+  --band-glow:rgba(0,0,0,.42);
   --shadow-sm:0 1px 2px rgba(0,0,0,.3);
   --shadow:0 2px 4px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.38);
   --shadow-lg:0 6px 12px rgba(0,0,0,.3), 0 26px 60px rgba(0,0,0,.5);
@@ -140,7 +163,7 @@ button{font:inherit;color:inherit}
   display:flex;align-items:center;gap:10px;
 }
 .eyebrow::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px;flex:none}
-.sec--band .eyebrow{color:var(--moss)}
+.sec--band .eyebrow{color:var(--band-accent)}
 
 h1,h2,h3{text-wrap:balance;line-height:1.08;letter-spacing:-.02em;font-weight:800}
 h2{font-size:clamp(1.85rem,4.2vw,3rem);margin-top:14px}
@@ -205,9 +228,9 @@ h3{font-size:1.14rem;letter-spacing:-.01em;line-height:1.25}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn--primary{background:var(--leaf-light);color:#17301B}}
 .btn--ghost{background:transparent;border-color:var(--border-strong);color:var(--fg)}
 .btn--ghost:hover{background:var(--accent-soft)}
-.btn--onband{background:var(--band-fg);color:var(--forest)}
+.btn--onband{background:var(--band-btn-bg);color:var(--band-btn-fg)}
 .btn--onband-ghost{background:transparent;border-color:var(--band-line);color:var(--band-fg)}
-.btn--onband-ghost:hover{background:rgba(246,241,228,.1)}
+.btn--onband-ghost:hover{background:var(--band-hover)}
 .btn--sm{padding:9px 15px;font-size:.86rem;border-radius:10px}
 .nav .btn--sm{display:none}
 @media (min-width:900px){
@@ -217,7 +240,7 @@ h3{font-size:1.14rem;letter-spacing:-.01em;line-height:1.25}
 
 /* ============ HERO ============ */
 .hero{position:relative;overflow:hidden;background:linear-gradient(158deg,var(--band-a) 0%,var(--band-b) 78%);color:var(--band-fg)}
-.hero-tex{position:absolute;inset:-12% -5% -18%;opacity:.5;pointer-events:none;will-change:transform}
+.hero-tex{position:absolute;inset:-12% -5% -18%;opacity:.5;color:var(--band-accent);pointer-events:none;will-change:transform}
 .hero-tex svg{width:100%;height:100%}
 .hero-in{
   position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
@@ -226,48 +249,32 @@ h3{font-size:1.14rem;letter-spacing:-.01em;line-height:1.25}
 .hero-logo{
   width:clamp(132px,20vw,208px);aspect-ratio:435/460;
   background:var(--logo) center/contain no-repeat;
-  filter:drop-shadow(0 22px 44px rgba(0,0,0,.42));
+  filter:drop-shadow(0 22px 44px var(--band-glow));
 }
 .hero-cue{
   margin-top:clamp(34px,5vw,52px);width:42px;height:42px;border-radius:50%;
   border:1px solid var(--band-line);display:grid;place-items:center;color:var(--band-fg-2);
   transition:background .2s,color .2s,border-color .2s;
 }
-.hero-cue:hover{background:rgba(246,241,228,.1);color:var(--band-fg);border-color:var(--band-fg-2)}
+.hero-cue:hover{background:var(--band-hover);color:var(--band-fg);border-color:var(--band-fg-2)}
 .hero-cue svg{width:19px;height:19px;animation:bob 2.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 .badge{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  padding:7px 13px;border:1px solid var(--band-line);border-radius:999px;color:var(--moss);
+  padding:7px 13px;border:1px solid var(--band-line);border-radius:999px;color:var(--band-accent);
   background:var(--band-card);
 }
-.badge b{width:6px;height:6px;border-radius:50%;background:var(--leaf-light)}
+.badge b{width:6px;height:6px;border-radius:50%;background:var(--band-accent)}
 h1{font-size:clamp(2.4rem,6.6vw,4.5rem);margin-top:26px;line-height:1.02;letter-spacing:-.035em;max-width:15ch}
-h1 em{font-style:normal;color:var(--leaf-light)}
+h1 em{font-style:normal;color:var(--band-accent)}
 .hero p{margin-top:22px;font-size:clamp(1.06rem,1.9vw,1.3rem);line-height:1.55;color:var(--band-fg-2);max-width:48ch;margin-inline:auto}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;justify-content:center}
 .hero-note{
   margin-top:26px;display:flex;align-items:center;justify-content:center;gap:9px;
   font-family:var(--mono);font-size:.76rem;line-height:1.5;color:var(--band-fg-2);letter-spacing:.09em;text-transform:uppercase;
 }
-.hero-note svg{width:15px;height:15px;flex:none;margin-top:2px;color:var(--leaf-light)}
-
-/* ============ NUMBERS ============ */
-.stats{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  border-top:1px solid var(--border);border-left:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;background:var(--card);
-}
-@media (min-width:860px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.stat{padding:clamp(22px,3.4vw,34px) 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stat .n{
-  font-size:clamp(2.1rem,4.6vw,3.05rem);font-weight:800;line-height:1;
-  letter-spacing:-.045em;color:var(--accent-ink);font-variant-numeric:tabular-nums;
-  display:flex;align-items:baseline;gap:2px;
-}
-.stat .n .u{font-size:.42em;font-weight:700;letter-spacing:-.01em}
-.stat .l{margin-top:11px;font-size:.88rem;line-height:1.4;color:var(--fg-2);font-weight:500}
+.hero-note svg{width:15px;height:15px;flex:none;margin-top:2px;color:var(--band-accent)}
 
 /* ============ PROBLEMA / SOLUCION ============ */
 .vs{display:grid;gap:18px}
@@ -297,37 +304,72 @@ h1 em{font-style:normal;color:var(--leaf-light)}
 @media (min-width:820px){.vs-mid svg{transform:none}.vs-a{border-radius:var(--r-lg) 0 0 var(--r-lg)}.vs-b{border-radius:0 var(--r-lg) var(--r-lg) 0}}
 
 /* ============ PASOS ============ */
-.steps{position:relative;display:grid;gap:26px}
-@media (min-width:900px){.steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:22px}}
-.rail{position:absolute;left:23px;top:24px;bottom:24px;width:2px;background:var(--border);border-radius:2px;z-index:0}
-.rail i{position:absolute;inset:0;background:linear-gradient(180deg,var(--accent),var(--leaf-light));transform:scaleY(var(--p,1));transform-origin:top;border-radius:2px}
-@media (min-width:900px){
-  .rail{left:10%;right:10%;top:23px;bottom:auto;width:auto;height:2px}
-  .rail i{background:linear-gradient(90deg,var(--accent),var(--leaf-light));transform:scaleX(var(--p,1));transform-origin:left}
+.steps{display:grid;gap:14px}
+@media (min-width:600px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}}
+.step{
+  position:relative;overflow:hidden;z-index:1;
+  display:flex;align-items:center;gap:16px;
+  padding:18px 20px;border:1px solid var(--border);border-radius:var(--r);
+  background:var(--card);
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
 }
-.step{position:relative;z-index:1;display:flex;gap:16px;align-items:flex-start}
-@media (min-width:900px){.step{flex-direction:column;gap:14px}}
-.step-num{
-  width:48px;height:48px;flex:none;border-radius:15px;display:grid;place-items:center;
-  background:var(--accent-ink);color:#F6F1E4;font-weight:800;font-size:1.05rem;
-  box-shadow:0 0 0 6px var(--bg-alt);position:relative;font-variant-numeric:tabular-nums;
+.step:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
+.step-ic{
+  width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;
+  background:var(--gold);color:#2A2318;box-shadow:0 6px 16px rgba(220,162,58,.3);
 }
-.step-num svg{position:absolute;width:19px;height:19px;right:-9px;bottom:-9px;padding:4px;box-sizing:content-box;background:var(--gold);color:#2A2318;border-radius:9px}
-.step h3{margin-bottom:8px}
-.step p{color:var(--fg-2);line-height:1.55;font-size:.94rem}
-.step em{font-style:italic;color:var(--accent-ink);font-weight:500}
+.step-ic svg{width:23px;height:23px}
+.step h3{position:relative;z-index:1;font-size:1.1rem;letter-spacing:-.015em;line-height:1.25}
+.step-n{
+  position:absolute;right:16px;bottom:-10px;pointer-events:none;
+  font-size:4.2rem;font-weight:800;line-height:1;letter-spacing:-.06em;
+  color:var(--gold);opacity:.16;font-variant-numeric:tabular-nums;
+}
+@media (min-width:1000px){
+  .step{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 20px 30px}
+  .step h3{font-size:1.04rem}
+  .step-n{right:14px;bottom:-12px;font-size:4.6rem}
+}
 
-/* ============ CIENCIA ============ */
-.concepts{display:grid;gap:18px}
-@media (min-width:760px){.concepts{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.concept{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px 24px;transition:transform .25s ease,box-shadow .25s ease}
-.concept:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.concept .ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);margin-bottom:16px}
-.concept .ic svg{width:22px;height:22px}
-.concept h3{font-size:1.08rem}
-.concept .abbr{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);display:block;margin-bottom:6px}
-.concept blockquote{margin:12px 0 0;color:var(--fg-2);line-height:1.6;font-size:.94rem;border-left:2px solid var(--border-strong);padding-left:14px}
-.concept .foot{margin-top:14px;font-family:var(--mono);font-size:.74rem;color:var(--accent-ink);letter-spacing:.02em}
+/* ============ CIENCIA: DEFINICIONES ============ */
+.defs{border-top:1px solid var(--border);max-width:900px}
+.def{border-bottom:1px solid var(--border)}
+.def-q{
+  width:100%;background:none;border:0;cursor:pointer;text-align:left;
+  position:relative;display:flex;flex-direction:column;gap:8px;
+  padding:clamp(24px,3.4vw,34px) clamp(58px,8vw,72px) clamp(24px,3.4vw,34px) 0;
+}
+.def-abbr{
+  font-size:clamp(2.3rem,7vw,3.6rem);font-weight:800;line-height:1;
+  letter-spacing:-.04em;color:var(--accent-ink);transition:color .2s ease,transform .3s ease;
+  transform-origin:left center;display:block;
+}
+.def-name{
+  font-family:var(--mono);font-size:clamp(.72rem,1.4vw,.8rem);font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);line-height:1.4;
+}
+.def-q:hover .def-abbr{color:var(--accent)}
+.def-x{
+  position:absolute;right:0;top:clamp(30px,4vw,42px);
+  width:clamp(40px,6vw,48px);height:clamp(40px,6vw,48px);border-radius:50%;
+  border:1px solid var(--border-strong);color:var(--accent-ink);
+  transition:background .22s ease,border-color .22s ease,transform .3s ease;
+}
+.def-x::before,.def-x::after{content:"";position:absolute;left:50%;top:50%;background:currentColor;border-radius:2px}
+.def-x::before{width:17px;height:2px;transform:translate(-50%,-50%)}
+.def-x::after{width:2px;height:17px;transform:translate(-50%,-50%);transition:transform .3s ease,opacity .3s ease}
+.def-q:hover .def-x{border-color:var(--accent);background:var(--accent-soft)}
+.def-q[aria-expanded="true"] .def-x{background:var(--accent-soft);border-color:var(--accent);transform:rotate(180deg)}
+.def-q[aria-expanded="true"] .def-x::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+.def-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s ease}
+.def-a>div{overflow:hidden}
+.def.open .def-a{grid-template-rows:1fr}
+.def-a p{color:var(--fg-2);line-height:1.65;font-size:clamp(1rem,1.5vw,1.1rem);max-width:64ch}
+.def-a .def-foot{
+  margin-top:14px;padding-bottom:clamp(26px,3.4vw,34px);
+  font-family:var(--mono);font-size:.78rem;color:var(--accent-ink);letter-spacing:.02em;line-height:1.5;
+}
 
 .chart-card{
   margin-top:26px;background:var(--card);border:1px solid var(--border);
@@ -377,32 +419,6 @@ h1 em{font-style:normal;color:var(--leaf-light)}
 .level--0 .bar{background:var(--risk-ok)} .level--0 .hd .b{background:var(--risk-ok)} .level--0 .rec{color:var(--risk-ok)}
 .level--1 .bar{background:var(--risk-warn)} .level--1 .hd .b{background:var(--risk-warn)} .level--1 .rec{color:var(--risk-warn)}
 .level--2 .bar{background:var(--risk-danger)} .level--2 .hd .b{background:var(--risk-danger)} .level--2 .rec{color:var(--risk-danger)}
-.nodata{
-  margin-top:18px;display:flex;gap:12px;align-items:center;padding:16px 20px;
-  border:1px dashed var(--border-strong);border-radius:var(--r);color:var(--fg-2);font-size:.92rem;line-height:1.45;
-}
-.nodata .b{width:11px;height:11px;border-radius:50%;background:var(--risk-unknown);flex:none}
-
-/* ============ FEATURES ============ */
-.feats{display:grid;gap:16px}
-@media (min-width:640px){.feats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1000px){.feats{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.feat{padding:24px 22px;border-radius:var(--r);border:1px solid var(--border);background:var(--card);transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
-.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--border-strong)}
-.feat .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);margin-bottom:15px}
-.feat .ic svg{width:19px;height:19px}
-.feat h3{font-size:1rem}
-.feat p{margin-top:8px;color:var(--fg-2);font-size:.9rem;line-height:1.5}
-
-/* ============ PARA QUIEN ============ */
-.who{display:grid;gap:18px}
-@media (min-width:820px){.who{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.who-card{border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;background:var(--card)}
-.who-card .ic{width:46px;height:46px;border-radius:14px;background:var(--accent-ink);color:#F6F1E4;display:grid;place-items:center;margin-bottom:18px}
-.who-card .ic svg{width:23px;height:23px}
-.who-card p{margin-top:10px;color:var(--fg-2);line-height:1.55;font-size:.95rem}
-.who-card .tagline{margin-top:16px;font-family:var(--mono);font-size:.74rem;color:var(--accent-ink);letter-spacing:.02em;line-height:1.5}
-
 /* ============ FAQ ============ */
 .faq{max-width:820px;border-top:1px solid var(--border)}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -436,24 +452,24 @@ h1 em{font-style:normal;color:var(--leaf-light)}
 .f-row label{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--band-fg-2)}
 .f-row input{
   font:inherit;font-size:.98rem;padding:13px 15px;border-radius:11px;
-  border:1px solid var(--band-line);background:rgba(23,48,27,.4);color:var(--band-fg);
+  border:1px solid var(--band-line);background:var(--band-input);color:var(--band-fg);
   transition:border-color .2s,background .2s;width:100%;
 }
-.f-row input::placeholder{color:rgba(198,211,188,.55)}
-.f-row input:focus{outline:none;border-color:var(--leaf-light);background:rgba(23,48,27,.65)}
-.f-row input[aria-invalid="true"]{border-color:#E58A72}
-.err{font-size:.8rem;color:#F0A895;min-height:1.1em;font-family:var(--mono)}
+.f-row input::placeholder{color:var(--band-ph)}
+.f-row input:focus{outline:none;border-color:var(--band-accent);background:var(--band-input-focus)}
+.f-row input[aria-invalid="true"]{border-color:var(--band-err)}
+.err{font-size:.8rem;color:var(--band-err);min-height:1.1em;font-family:var(--mono)}
 .form .btn{width:100%;margin-top:20px}
 .ok{
   display:none;gap:12px;align-items:flex-start;margin-top:18px;padding:16px;
-  border-radius:12px;background:rgba(143,191,116,.16);border:1px solid rgba(143,191,116,.4);
+  border-radius:12px;background:var(--accent-soft);border:1px solid var(--band-accent);
   color:var(--band-fg);font-size:.94rem;line-height:1.5;
 }
 .ok.show{display:flex}
-.ok svg{width:19px;height:19px;flex:none;color:var(--leaf-light);margin-top:1px}
+.ok svg{width:19px;height:19px;flex:none;color:var(--band-accent);margin-top:1px}
 .cta-list{margin-top:26px;display:grid;gap:12px}
 .cta-list li{display:flex;gap:11px;align-items:flex-start;color:var(--band-fg-2);font-size:.97rem;line-height:1.5}
-.cta-list svg{width:18px;height:18px;flex:none;color:var(--leaf-light);margin-top:2px}
+.cta-list svg{width:18px;height:18px;flex:none;color:var(--band-accent);margin-top:2px}
 
 /* ============ FOOTER ============ */
 .ft{background:var(--bg-alt);border-top:1px solid var(--border);padding-block:clamp(48px,6vw,72px) 32px}
@@ -501,6 +517,22 @@ h1 em{font-style:normal;color:var(--leaf-light)}
   .js .reveal{opacity:1;transform:none}
   .hero-tex{transform:none !important}
 }
+/* ============ ESCALA EN MOBILE ============ */
+@media (max-width:680px){
+  html{font-size:17.5px}
+  .wrap{padding-inline:18px}
+  .sec{padding-block:clamp(52px,9vw,72px)}
+  .hero-in{padding-block:44px 40px}
+  .hero-logo{width:clamp(112px,28vw,150px)}
+  h1{font-size:clamp(2.15rem,8.6vw,2.7rem);margin-top:20px}
+  .hero p{margin-top:18px;font-size:1.06rem}
+  .hero-cta{margin-top:26px;width:100%}
+  .hero-cta .btn{flex:1 1 100%}
+  .hero-cue{margin-top:26px}
+  .vs-col{padding:22px 20px}
+  .level-in{padding:22px 20px}
+  .chart-card{padding:20px 16px}
+}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -516,9 +548,8 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       Plag-Out
     </a>
     <nav class="nav-links" aria-label="Secciones">
-      <a href="#como-funciona">Cómo funciona</a>
       <a href="#ciencia">La ciencia</a>
-      <a href="#funciones">Funciones</a>
+      <a href="#como-funciona">Cómo funciona</a>
       <a href="#faq">Preguntas</a>
     </nav>
     <div class="nav-tools">
@@ -535,19 +566,19 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 <section class="hero" id="top">
   <div class="hero-tex" id="hero-tex" aria-hidden="true">
     <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
-      <g fill="none" stroke="#8FBF74" stroke-width="1.1" opacity=".22">
+      <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".22">
         <path d="M-40 520C180 470 320 500 520 452s380-96 760-150"/>
         <path d="M-40 570C180 520 320 550 520 502s380-96 760-150"/>
         <path d="M-40 620C180 570 320 600 520 552s380-96 760-150"/>
         <path d="M-40 670C180 620 320 650 520 602s380-96 760-150"/>
         <path d="M-40 720C180 670 320 700 520 652s380-96 760-150"/>
       </g>
-      <g fill="none" stroke="#A8C68F" stroke-width="1" opacity=".16">
+      <g fill="none" stroke="currentColor" stroke-width="1" opacity=".16">
         <path d="M760 40c120 60 190 150 210 260"/>
         <path d="M700 20c140 70 220 175 240 300"/>
         <path d="M820 70c95 50 150 120 168 210"/>
       </g>
-      <g fill="#8FBF74" opacity=".1">
+      <g fill="currentColor" opacity=".1">
         <circle cx="130" cy="120" r="150"/>
         <circle cx="1080" cy="600" r="190"/>
       </g>
@@ -572,37 +603,13 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   </div>
 </section>
 
-<!-- ============ 2. BARRA DE NÚMEROS ============ -->
-<section class="sec" style="padding-block:clamp(40px,5vw,64px)">
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat">
-        <div class="n"><span data-count="3">3</span></div>
-        <div class="l">niveles de alerta: bajo, moderado y alto</div>
-      </div>
-      <div class="stat">
-        <div class="n"><span data-count="1">1</span></div>
-        <div class="l">recálculo de GDD por día, para cada monitoreo</div>
-      </div>
-      <div class="stat">
-        <div class="n"><span class="u">~</span><span data-count="14">14</span><span class="u"> días</span></div>
-        <div class="l">de margen antes de los adultos de chicharrita</div>
-      </div>
-      <div class="stat">
-        <div class="n"><span data-count="50">50</span><span class="u"> km</span></div>
-        <div class="l">de radio para ver los reportes de la comunidad</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 3. PROBLEMA → SOLUCIÓN ============ -->
+<!-- ============ 2. PROBLEMA → SOLUCIÓN ============ -->
 <section class="sec sec--alt">
   <div class="wrap">
     <div class="sec-head reveal reveal--l">
       <span class="eyebrow">El cambio</span>
       <h2>Del monitoreo reactivo<br>al aviso anticipado.</h2>
-      <p class="lead">Cuando ves el daño en el lote, la ventana óptima de aplicación —la eclosión de los huevos, antes de que la larva se refugie— puede haber pasado.</p>
+      <p class="lead">Cuando ves el daño en el lote, la ventana óptima de aplicación puede haber pasado.</p>
     </div>
 
     <div class="vs">
@@ -628,118 +635,53 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>El riesgo se recalcula todos los días, lote por lote.</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Vos elegís el umbral: con cuánto margen querés el aviso.</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>La notificación abre exactamente el monitoreo que la originó.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>La app te avisa cuando detecta un posible biofix.</li>
         </ul>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============ 4. CÓMO FUNCIONA — 5 PASOS ============ -->
-<section class="sec" id="como-funciona">
-  <div class="wrap">
-    <div class="sec-head reveal reveal--l">
-      <span class="eyebrow">Cómo funciona</span>
-      <h2>Cinco pasos, una sola vez.</h2>
-      <p class="lead">Cargás la estructura de tu campo al principio; después la app trabaja sola y te habla solo cuando hace falta.</p>
-    </div>
-
-    <div class="steps" id="steps">
-      <div class="rail" aria-hidden="true"><i id="rail-fill"></i></div>
-
-      <article class="step reveal">
-        <div class="step-num">1
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 19 6-9 4.5 6 2.5-3.2L21.5 19H2.5Z"/></svg>
-        </div>
-        <div>
-          <h3>Cargá tus terrenos</h3>
-          <p>Nombre, hectáreas y ubicación en el mapa. <em>De ahí sale el clima con el que se calcula todo lo demás.</em></p>
-        </div>
-      </article>
-
-      <article class="step reveal" style="--d:80ms">
-        <div class="step-num">2
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-7"/><path d="M12 14c0-4-2.5-6.5-6.5-6.5C5.5 11.5 8 14 12 14Z"/><path d="M12 14c0-4 2.5-6.5 6.5-6.5C18.5 11.5 16 14 12 14Z"/></svg>
-        </div>
-        <div>
-          <h3>Agregá tus cultivos</h3>
-          <p>Qué cultivo sembraste en ese terreno y en qué fecha.</p>
-        </div>
-      </article>
-
-      <article class="step reveal" style="--d:160ms">
-        <div class="step-num">3
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5h5v4.2l4 8.4a3.2 3.2 0 0 1-2.9 4.6H8.4a3.2 3.2 0 0 1-2.9-4.6l4-8.4V3.5Z"/><path d="M8 3.5h8"/></svg>
-        </div>
-        <div>
-          <h3>Iniciá monitoreos</h3>
-          <p>Elegí la plaga que querés seguir y el umbral de riesgo a partir del cual querés que te avisemos.</p>
-        </div>
-      </article>
-
-      <article class="step reveal" style="--d:240ms">
-        <div class="step-num">4
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h8l2 5v4a6 6 0 0 1-12 0v-4l2-5Z"/><path d="M9 6 7 3.5M15 6l2-2.5M4 12H2M22 12h-2M5 17l-2 1.5M19 17l2 1.5"/></svg>
-        </div>
-        <div>
-          <h3>Realizá reportes</h3>
-          <p>Con el botón + registrás lo que ves a campo: plaga, etapa biológica, severidad, ubicación y fecha.</p>
-        </div>
-      </article>
-
-      <article class="step reveal" style="--d:320ms">
-        <div class="step-num">5
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2 7.5-2 7.5h16s-2-1.5-2-7.5Z"/><path d="M13.7 19.5a2 2 0 0 1-3.4 0"/></svg>
-        </div>
-        <div>
-          <h3>Recibí alertas</h3>
-          <p>Te notificamos cuando el riesgo supera tu umbral y cuando detectamos un posible biofix, <em>para que llegues antes que la plaga.</em></p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. LA CIENCIA DETRÁS ============ -->
-<section class="sec sec--alt" id="ciencia">
+<!-- ============ 3. LA CIENCIA DETRÁS ============ -->
+<section class="sec" id="ciencia">
   <div class="wrap">
     <div class="sec-head reveal reveal--l">
       <span class="eyebrow">La ciencia detrás</span>
-      <h2>GDD, biofix e IRA.</h2>
-      <p class="lead">Tres conceptos sostienen todo lo que ves en la app. Los explicamos igual adentro y acá afuera: Plag-Out y esta página hablan el mismo idioma.</p>
+      <h2>GDD y biofix.</h2>
+      <p class="lead">Dos conceptos sostienen todo lo que ves en la app. Tocá cada uno para leer la definición.</p>
     </div>
 
-    <div class="concepts">
-      <article class="concept reveal reveal--l">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5v10.2a4.2 4.2 0 1 0 4 0V3.5a2 2 0 0 0-4 0Z"/><path d="M14 8h3M14 11.5h2"/></svg></div>
-        <span class="abbr">GDD</span>
-        <h3>Grados Día de Crecimiento</h3>
-        <blockquote>«El calor que se fue acumulando desde que arranca el conteo (la siembra de tu cultivo o el biofix de la plaga). Cada plaga necesita juntar cierta cantidad para eclosionar, y ese total es el objetivo del monitoreo.»</blockquote>
-        <p class="foot">Se recalcula una vez por día.</p>
-      </article>
+    <div class="defs reveal reveal--r" id="defs">
+      <div class="def">
+        <h3><button class="def-q" type="button" aria-expanded="false" aria-controls="dfa1" id="dfq1">
+          <span class="def-abbr">GDD</span>
+          <span class="def-name">Grados Día de Crecimiento</span>
+          <i class="def-x" aria-hidden="true"></i>
+        </button></h3>
+        <div class="def-a" id="dfa1" role="region" aria-labelledby="dfq1"><div>
+          <p>El calor que se fue acumulando desde que arranca el conteo: la siembra de tu cultivo o el biofix de la plaga. Cada plaga necesita juntar cierta cantidad para eclosionar, y ese total es el objetivo del monitoreo.</p>
+          <p class="def-foot">Se recalcula una vez por día.</p>
+        </div></div>
+      </div>
 
-      <article class="concept reveal" style="--d:90ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.5v17"/><path d="M5 5h11l-2.2 3L16 11H5"/><circle cx="5" cy="20.5" r="1.6"/></svg></div>
-        <span class="abbr">Biofix</span>
-        <h3>El punto de partida</h3>
-        <blockquote>«La fecha desde la que empezamos a acumular GDD para una plaga, marcada por un hecho biológico concreto —típicamente la primera aparición de adultos en la zona—. Si el biofix se corre, se corre también el pronóstico.»</blockquote>
-        <p class="foot">En chicharrita del maíz: unos 14 días de margen. Es una estimación, no una garantía.</p>
-      </article>
-
-      <article class="concept reveal reveal--r" style="--d:180ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 0 1 17 0"/><path d="m12 12 4.2-3.2"/><circle cx="12" cy="12" r="1.6"/><path d="M3.5 12v3.5M20.5 12v3.5"/></svg></div>
-        <span class="abbr">IRA</span>
-        <h3>Índice de Riesgo Ambiental</h3>
-        <blockquote>«Combina los GDD acumulados con las condiciones que atravesó la plaga para estimar cuánto la favoreció el ambiente. De ahí salen el nivel de alerta y el porcentaje del anillo.»</blockquote>
-        <p class="foot">No mide lo que hay hoy en el lote: estima la densidad poblacional esperable.</p>
-      </article>
+      <div class="def">
+        <h3><button class="def-q" type="button" aria-expanded="false" aria-controls="dfa2" id="dfq2">
+          <span class="def-abbr">Biofix</span>
+          <span class="def-name">El punto de partida del conteo</span>
+          <i class="def-x" aria-hidden="true"></i>
+        </button></h3>
+        <div class="def-a" id="dfa2" role="region" aria-labelledby="dfq2"><div>
+          <p>La fecha desde la que empezamos a acumular GDD para una plaga, marcada por un hecho biológico concreto —típicamente la primera aparición de adultos en la zona—. Si el biofix se corre, se corre también el pronóstico.</p>
+          <p class="def-foot">En chicharrita del maíz: unos 14 días de margen. Es una estimación, no una garantía.</p>
+        </div></div>
+      </div>
     </div>
 
     <div class="chart-card reveal reveal--zoom" id="chart-card">
       <div class="chart-head">
         <div>
           <h3>Así se acumula el calor hasta el aviso</h3>
-          <p>Los GDD suben día a día desde el biofix. Cuando el monitoreo alcanza tu umbral —acá, el 80% de los 500 GDD que la plaga necesita para eclosionar— te llega la alerta.</p>
+          <p>Los GDD suben día a día desde el biofix. Cuando el monitoreo alcanza tu umbral, te llega la alerta.</p>
         </div>
         <div class="chart-legend">
           <span><i class="k" style="background:var(--accent)"></i>GDD acumulados</span>
@@ -797,7 +739,49 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   </div>
 </section>
 
-<!-- ============ 6. NIVELES DE ALERTA ============ -->
+<!-- ============ 4. CÓMO FUNCIONA — 5 PASOS ============ -->
+<section class="sec sec--alt" id="como-funciona">
+  <div class="wrap">
+    <div class="sec-head reveal reveal--l">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>Cinco pasos, una sola vez.</h2>
+    </div>
+
+    <div class="steps" id="steps">
+      <article class="step reveal">
+        <span class="step-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 19 6-9 4.5 6 2.5-3.2L21.5 19H2.5Z"/></svg></span>
+        <h3>Cargá tus terrenos</h3>
+        <span class="step-n" aria-hidden="true">1</span>
+      </article>
+
+      <article class="step reveal" style="--d:70ms">
+        <span class="step-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-7"/><path d="M12 14c0-4-2.5-6.5-6.5-6.5C5.5 11.5 8 14 12 14Z"/><path d="M12 14c0-4 2.5-6.5 6.5-6.5C18.5 11.5 16 14 12 14Z"/></svg></span>
+        <h3>Agregá tus cultivos</h3>
+        <span class="step-n" aria-hidden="true">2</span>
+      </article>
+
+      <article class="step reveal" style="--d:140ms">
+        <span class="step-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5h5v4.2l4 8.4a3.2 3.2 0 0 1-2.9 4.6H8.4a3.2 3.2 0 0 1-2.9-4.6l4-8.4V3.5Z"/><path d="M8 3.5h8"/></svg></span>
+        <h3>Iniciá monitoreos</h3>
+        <span class="step-n" aria-hidden="true">3</span>
+      </article>
+
+      <article class="step reveal" style="--d:210ms">
+        <span class="step-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h8l2 5v4a6 6 0 0 1-12 0v-4l2-5Z"/><path d="M9 6 7 3.5M15 6l2-2.5M4 12H2M22 12h-2M5 17l-2 1.5M19 17l2 1.5"/></svg></span>
+        <h3>Realizá reportes</h3>
+        <span class="step-n" aria-hidden="true">4</span>
+      </article>
+
+      <article class="step reveal" style="--d:280ms">
+        <span class="step-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2 7.5-2 7.5h16s-2-1.5-2-7.5Z"/><path d="M13.7 19.5a2 2 0 0 1-3.4 0"/></svg></span>
+        <h3>Recibí alertas</h3>
+        <span class="step-n" aria-hidden="true">5</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. NIVELES DE ALERTA ============ -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-head reveal reveal--l">
@@ -835,105 +819,10 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       </article>
     </div>
 
-    <p class="nodata reveal"><i class="b"></i><span><b>Sin datos.</b> Todavía no hay monitoreos con datos suficientes para calcular el IRA. Cuando un monitoreo se cierra, pasa al estado <b>Finalizado</b> y deja de calcular.</span></p>
   </div>
 </section>
 
-<!-- ============ 7. FUNCIONALIDADES ============ -->
-<section class="sec sec--alt" id="funciones">
-  <div class="wrap">
-    <div class="sec-head reveal reveal--l">
-      <span class="eyebrow">Funcionalidades</span>
-      <h2>Todo lo que hace la app.</h2>
-    </div>
-
-    <div class="feats">
-      <article class="feat reveal reveal--l">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.4" opacity=".35"/><path d="M12 3.6a8.4 8.4 0 0 1 7 13"/></svg></div>
-        <h3>Monitoreos con anillo</h3>
-        <p>GDD acumulados sobre GDD objetivo, con estimación de cuántos días faltan para tu umbral.</p>
-      </article>
-
-      <article class="feat reveal reveal--l" style="--d:60ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s6.8-6 6.8-10.6A6.8 6.8 0 0 0 5.2 10.4C5.2 15 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.4"/></svg></div>
-        <h3>Terrenos en el mapa</h3>
-        <p>Alta en dos pasos: nombre y hectáreas, después la ubicación marcada sobre OpenStreetMap.</p>
-      </article>
-
-      <article class="feat reveal reveal--r" style="--d:120ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h8l2 5v4a6 6 0 0 1-12 0v-4l2-5Z"/><path d="M9 6 7 3.5M15 6l2-2.5"/></svg></div>
-        <h3>Reportes a campo con GPS</h3>
-        <p>Plaga, etapa biológica, severidad y ubicación capturada automáticamente. Queda como historial del lote.</p>
-      </article>
-
-      <article class="feat reveal reveal--r" style="--d:180ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.6 12h16.8M12 3.5c2.2 2.4 3.4 5.4 3.4 8.5s-1.2 6.1-3.4 8.5c-2.2-2.4-3.4-5.4-3.4-8.5S9.8 5.9 12 3.5Z"/></svg></div>
-        <h3>Comunidad en 50 km</h3>
-        <p>Los reportes cercanos de otros usuarios, filtrables por radio de 5, 10, 25 o 50 km.</p>
-      </article>
-
-      <article class="feat reveal reveal--l" style="--d:240ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2 7.5-2 7.5h16s-2-1.5-2-7.5Z"/><path d="M13.7 19.5a2 2 0 0 1-3.4 0"/></svg></div>
-        <h3>Alertas push con deep-link</h3>
-        <p>Cada notificación abre exactamente el monitoreo, el reporte o el cultivo que la originó.</p>
-      </article>
-
-      <article class="feat reveal reveal--l" style="--d:300ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18.5a4.5 4.5 0 0 1 .9-8.9 6.2 6.2 0 0 1 11.4-1.7A4.8 4.8 0 0 1 19 18.5"/><path d="m3 3 18 18"/></svg></div>
-        <h3>Funciona sin señal</h3>
-        <p>Caché local: los datos ya cargados se siguen viendo en el campo, donde la conectividad es mala.</p>
-      </article>
-
-      <article class="feat reveal reveal--r" style="--d:360ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/><circle cx="9.5" cy="8" r="2.6"/><circle cx="15" cy="16" r="2.6"/></svg></div>
-        <h3>Umbral configurable</h3>
-        <p>Vos decidís a qué porcentaje del objetivo querés el aviso. Se edita en cualquier momento.</p>
-      </article>
-
-      <article class="feat reveal reveal--r" style="--d:420ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v17H6.5A2.5 2.5 0 0 0 4 22.5V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v17h5.5a2.5 2.5 0 0 1 2.5 2.5V5.5Z"/></svg></div>
-        <h3>Guía integrada</h3>
-        <p>Ayuda rápida con los 5 pasos y una guía completa que explica GDD, biofix, IRA y los niveles.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 8. PARA QUIÉN ES ============ -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head reveal reveal--l">
-      <span class="eyebrow">Para quién es</span>
-      <h2>Tres formas de usarla.</h2>
-      <p class="lead">Al crear la cuenta elegís tu cargo, y la app se ordena alrededor de cómo trabajás.</p>
-    </div>
-
-    <div class="who">
-      <article class="who-card reveal reveal--l">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 20V9.5l7-5 7 5V20"/><path d="M10 20v-5h4v5"/></svg></div>
-        <h3>Productores</h3>
-        <p>Anticipar las aplicaciones en lugar de correr detrás del daño, y no perder rendimiento por llegar tarde.</p>
-        <p class="tagline">→ El panel de campo, en una pantalla.</p>
-      </article>
-
-      <article class="who-card reveal" style="--d:90ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M8.5 8h7M8.5 11.5h4.5"/></svg></div>
-        <h3>Ingenieros agrónomos</h3>
-        <p>Seguir varios lotes de varios clientes con el mismo criterio, y ordenar o filtrar por nivel de alerta.</p>
-        <p class="tagline">→ Todos los monitoreos, ordenados por riesgo.</p>
-      </article>
-
-      <article class="who-card reveal reveal--r" style="--d:180ms">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s6.8-6 6.8-10.6A6.8 6.8 0 0 0 5.2 10.4C5.2 15 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.4"/></svg></div>
-        <h3>Encargados y personal de campo</h3>
-        <p>Cargar lo que se ve en el lote desde el celular: plaga, etapa, severidad y ubicación, en el momento.</p>
-        <p class="tagline">→ El botón +, siempre a mano.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 9. PREGUNTAS FRECUENTES ============ -->
+<!-- ============ 6. PREGUNTAS FRECUENTES ============ -->
 <section class="sec sec--alt" id="faq">
   <div class="wrap">
     <div class="sec-head reveal reveal--l">
@@ -959,7 +848,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       <div class="faq-item">
         <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa3" id="fq3">¿De dónde salen los datos de clima?</button></h3>
         <div class="faq-a" id="fa3" role="region" aria-labelledby="fq3"><div>
-          <p>De la ubicación que marcaste para cada terreno. Nuestro backend cruza esas coordenadas con datos climáticos y aplica los modelos de acumulación térmica; el cálculo de GDD e IRA se rehace una vez por día para cada monitoreo activo. Por eso el primer paso —cargar bien la ubicación del lote— es el que sostiene todo lo demás.</p>
+          <p>De la ubicación que marcaste para cada terreno. Nuestro backend cruza esas coordenadas con datos climáticos y aplica los modelos de acumulación térmica; el cálculo de GDD se rehace una vez por día para cada monitoreo activo. Por eso el primer paso —cargar bien la ubicación del lote— es el que sostiene todo lo demás.</p>
         </div></div>
       </div>
 
@@ -987,16 +876,16 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   </div>
 </section>
 
-<!-- ============ 10. CTA FINAL + CONTACTO ============ -->
+<!-- ============ 7. CTA FINAL + CONTACTO ============ -->
 <section class="sec sec--band" id="contacto">
   <div class="wrap cta-in">
     <div class="reveal reveal--l">
       <span class="eyebrow">Antes que la plaga</span>
       <h2>Avisame cuando esté disponible.</h2>
-      <p class="lead">Estamos terminando la primera versión pública. Dejanos tu mail y te escribimos apenas puedas descargarla.</p>
+      <p class="lead">Estamos buscando usuarios para pruebas piloto que nos ayuden a validar la app en el campo. Dejanos tus datos y te escribimos para sumarte.</p>
       <ul class="cta-list">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Sin costo durante la etapa de prueba.</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Un solo mail cuando salga. Nada más.</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Tu experiencia nos ayuda a mejorarla antes del lanzamiento.</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Android primero; iOS está en los planes.</li>
       </ul>
     </div>
@@ -1007,8 +896,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       Para que reciba mails de verdad hay que apuntarlo a un endpoint propio.
     -->
     <form class="form reveal reveal--r" id="wait-form" novalidate style="--d:100ms">
-      <h3>Avisame cuando salga</h3>
-      <p class="hint">El formulario todavía no está conectado a nuestro servidor. Mientras tanto, escribinos a <a href="mailto:plagout@gmail.com" style="color:var(--leaf-light)">plagout@gmail.com</a> y te sumamos a la lista.</p>
+      <h3>Quiero sumarme a la prueba piloto</h3>
       <div class="f-row">
         <label for="f-name">Nombre</label>
         <input id="f-name" name="nombre" type="text" placeholder="Cómo te llamás" autocomplete="name">
@@ -1028,7 +916,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   </div>
 </section>
 
-<!-- ============ 11. FOOTER ============ -->
+<!-- ============ 8. FOOTER ============ -->
 <footer class="ft">
   <div class="wrap">
     <div class="ft-grid">
@@ -1060,9 +948,8 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       <div>
         <h4>Navegación</h4>
         <ul>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
           <li><a href="#ciencia">La ciencia detrás</a></li>
-          <li><a href="#funciones">Funcionalidades</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
           <li><a href="#faq">Preguntas frecuentes</a></li>
           <li><a href="#contacto">Avisame cuando salga</a></li>
         </ul>
@@ -1173,22 +1060,6 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
     for (var m = 0; m < targets.length; m++) activate(targets[m]);
   }
 
-  /* ---------- línea del timeline que se dibuja ---------- */
-  var steps = document.getElementById('steps');
-  var railFill = document.getElementById('rail-fill');
-  function updateRail() {
-    if (!steps || !railFill) return;
-    if (reduce) { railFill.style.setProperty('--p', 1); return; }
-    var r = steps.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var p = (vh * 0.85 - r.top) / (r.height * 0.85);
-    railFill.style.setProperty('--p', Math.max(0, Math.min(1, p)));
-  }
-  railFill.style.setProperty('--p', 0);
-  updateRail();
-  window.addEventListener('scroll', updateRail, { passive: true });
-  window.addEventListener('resize', updateRail);
-
   /* ---------- parallax muy leve del hero ---------- */
   var tex = document.getElementById('hero-tex');
   if (tex && !reduce) {
@@ -1196,6 +1067,16 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       var y = window.scrollY;
       if (y < 900) tex.style.transform = 'translate3d(0,' + (y * 0.09).toFixed(1) + 'px,0)';
     }, { passive: true });
+  }
+
+  /* ---------- acordeón de definiciones ---------- */
+  var ds = document.querySelectorAll('.def-q');
+  for (var d = 0; d < ds.length; d++) {
+    ds[d].addEventListener('click', function () {
+      var open = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', open ? 'false' : 'true');
+      this.closest('.def').classList.toggle('open', !open);
+    });
   }
 
   /* ---------- acordeón de FAQ ---------- */
