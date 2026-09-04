@@ -409,16 +409,10 @@ h1 em{font-style:normal;color:var(--band-accent)}
 .level .hd{display:flex;align-items:center;gap:11px}
 .level .hd .b{width:12px;height:12px;border-radius:50%;flex:none}
 .level .hd h3{font-size:1.2rem}
-.level .idx{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--fg-2);letter-spacing:.1em}
 .level p{margin-top:14px;color:var(--fg-2);line-height:1.55;font-size:.94rem}
-.level .rec{
-  margin-top:auto;padding-top:16px;display:flex;gap:9px;align-items:flex-start;
-  font-size:.9rem;line-height:1.45;font-weight:600;
-}
-.level .rec svg{width:16px;height:16px;flex:none;margin-top:2px}
-.level--0 .bar{background:var(--risk-ok)} .level--0 .hd .b{background:var(--risk-ok)} .level--0 .rec{color:var(--risk-ok)}
-.level--1 .bar{background:var(--risk-warn)} .level--1 .hd .b{background:var(--risk-warn)} .level--1 .rec{color:var(--risk-warn)}
-.level--2 .bar{background:var(--risk-danger)} .level--2 .hd .b{background:var(--risk-danger)} .level--2 .rec{color:var(--risk-danger)}
+.level--0 .bar{background:var(--risk-ok)} .level--0 .hd .b{background:var(--risk-ok)}
+.level--1 .bar{background:var(--risk-warn)} .level--1 .hd .b{background:var(--risk-warn)}
+.level--2 .bar{background:var(--risk-danger)} .level--2 .hd .b{background:var(--risk-danger)}
 /* ============ FAQ ============ */
 .faq{max-width:820px;border-top:1px solid var(--border)}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -744,7 +738,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   <div class="wrap">
     <div class="sec-head reveal reveal--l">
       <span class="eyebrow">Cómo funciona</span>
-      <h2>Cinco pasos, una sola vez.</h2>
+      <h2>Cinco pasos.</h2>
     </div>
 
     <div class="steps" id="steps">
@@ -794,27 +788,24 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       <article class="level level--0 reveal reveal--l">
         <div class="bar"></div>
         <div class="level-in">
-          <div class="hd"><i class="b"></i><h3>Bajo</h3><span class="idx">Nivel 0</span></div>
+          <div class="hd"><i class="b"></i><h3>Bajo</h3></div>
           <p>Las condiciones ambientales no favorecieron a la plaga: se espera una densidad poblacional baja.</p>
-          <p class="rec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Seguí el monitoreo con la frecuencia habitual.</p>
         </div>
       </article>
 
       <article class="level level--1 reveal" style="--d:90ms">
         <div class="bar"></div>
         <div class="level-in">
-          <div class="hd"><i class="b"></i><h3>Moderado</h3><span class="idx">Nivel 1</span></div>
+          <div class="hd"><i class="b"></i><h3>Moderado</h3></div>
           <p>Hubo períodos con condiciones favorables: la densidad poblacional esperada es intermedia.</p>
-          <p class="rec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.5v5"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>Revisá el cultivo más seguido y prepará el control por las dudas.</p>
         </div>
       </article>
 
       <article class="level level--2 reveal reveal--r" style="--d:180ms">
         <div class="bar"></div>
         <div class="level-in">
-          <div class="hd"><i class="b"></i><h3>Alto</h3><span class="idx">Nivel 2</span></div>
+          <div class="hd"><i class="b"></i><h3>Alto</h3></div>
           <p>Las condiciones fueron muy favorables para la plaga: se espera una densidad poblacional alta.</p>
-          <p class="rec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 2.5 17.5A2 2 0 0 0 4.2 20.5h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4M12 17h.01"/></svg>Inspeccioná el cultivo cuanto antes y evaluá aplicar control.</p>
         </div>
       </article>
     </div>
@@ -841,21 +832,14 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       <div class="faq-item">
         <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa2" id="fq2">¿Necesito internet en el campo?</button></h3>
         <div class="faq-a" id="fa2" role="region" aria-labelledby="fq2"><div>
-          <p>Para sincronizar sí, pero no para consultar. Plag-Out guarda una caché local de todo lo que ya cargaste, así que tus terrenos, cultivos y monitoreos se siguen viendo donde la señal es mala. Los datos se actualizan cuando volvés a tener conexión.</p>
+          <p>Para sincronizar sí, pero no para consultar. Plag-Out guarda en el teléfono una copia de todo lo que ya cargaste, así que tus terrenos, cultivos y monitoreos se siguen viendo donde la señal es mala. Tené en cuenta que esa copia puede estar desactualizada: los datos se ponen al día cuando volvés a tener conexión.</p>
         </div></div>
       </div>
 
       <div class="faq-item">
         <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa3" id="fq3">¿De dónde salen los datos de clima?</button></h3>
         <div class="faq-a" id="fa3" role="region" aria-labelledby="fq3"><div>
-          <p>De la ubicación que marcaste para cada terreno. Nuestro backend cruza esas coordenadas con datos climáticos y aplica los modelos de acumulación térmica; el cálculo de GDD se rehace una vez por día para cada monitoreo activo. Por eso el primer paso —cargar bien la ubicación del lote— es el que sostiene todo lo demás.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa4" id="fq4">¿Cuántos terrenos puedo cargar?</button></h3>
-        <div class="faq-a" id="fa4" role="region" aria-labelledby="fq4"><div>
-          <p>Los que necesites: no hay un tope por cuenta. Cada terreno puede tener varios cultivos, y cada cultivo, varios monitoreos con su propio umbral. La vista de Terrenos te muestra el total, las hectáreas sumadas y cómo se reparten por nivel de alerta.</p>
+          <p>De la ubicación que marcaste para cada terreno. Plag-Out cruza esas coordenadas con datos climáticos y aplica los modelos de acumulación térmica; el cálculo de GDD se rehace una vez por día para cada monitoreo activo.</p>
         </div></div>
       </div>
 
@@ -869,7 +853,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
       <div class="faq-item">
         <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa6" id="fq6">¿Está disponible en iOS?</button></h3>
         <div class="faq-a" id="fa6" role="region" aria-labelledby="fq6"><div>
-          <p>Hoy Plag-Out es una app Android nativa: elegimos Android primero porque es lo que se usa en el campo. Una versión para iOS está en los planes, pero todavía no tiene fecha.</p>
+          <p>Hoy Plag-Out es una app Android nativa. Una versión para iOS está en los planes, pero todavía no tiene fecha.</p>
         </div></div>
       </div>
     </div>
@@ -941,7 +925,6 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="3"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/></svg><a href="mailto:plagout@gmail.com">plagout@gmail.com</a></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5c0 8 6 14 14 14l2-3.2-4-2.2-2 1.8a12 12 0 0 1-4.4-4.4l1.8-2-2.2-4L6.5 4.5a3 3 0 0 0-3 2Z"/></svg><span>+54 9 11 5555-4321 · WhatsApp</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s6.8-6 6.8-10.6A6.8 6.8 0 0 0 5.2 10.4C5.2 15 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.4"/></svg><span>Buenos Aires, Argentina</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.6 12h16.8M12 3.5c2.2 2.4 3.4 5.4 3.4 8.5s-1.2 6.1-3.4 8.5c-2.2-2.4-3.4-5.4-3.4-8.5S9.8 5.9 12 3.5Z"/></svg><span>plagout.app</span></li>
         </ul>
       </div>
 
@@ -958,7 +941,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 
     <div class="ft-bottom">
       <span>© 2026 Plag-Out. Todos los derechos reservados.</span>
-      <span class="disc">Buenos Aires, Argentina · plagout.app</span>
+      <span class="disc">Buenos Aires, Argentina</span>
     </div>
   </div>
 </footer>
