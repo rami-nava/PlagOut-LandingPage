@@ -1825,3 +1825,6 @@ body{font-size:18px}
 .signup-card .button{margin-top:28px}
 .signup-card .micro{font-size:14px;margin-top:16px}
 button:disabled{cursor:wait;opacity:.7}
+
+/* Keep the subtle hero motion looping. */
+.hero-phone,.insight-card,.orbit-two{animation-iteration-count:infinite}
