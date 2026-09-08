@@ -125,10 +125,6 @@
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let motionPaused = reduced.matches;
-  const motionControl = document.createElement('button');
-  motionControl.className = 'motion-control';
-  motionControl.type = 'button';
-  document.body.append(motionControl);
   const video = document.getElementById('app-demo');
   const playButton = document.getElementById('demo-play');
   const demoControl = document.getElementById('demo-control');
@@ -139,14 +135,34 @@
   // The video also stays out of opacity/transform entrance animations.
   video.controls = false;
   const fullscreenButton = document.getElementById('demo-fullscreen');
-  fullscreenButton.hidden = !(video.requestFullscreen || video.webkitEnterFullscreen);
+  const videoDialog = document.getElementById('video-dialog');
+  const phone = document.querySelector('.demo-phone');
+  const phoneHome = phone.parentElement;
+  let expanded = false;
   fullscreenButton.addEventListener('click', async () => {
-    try {
-      if (video.requestFullscreen) await video.requestFullscreen();
-      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-    } catch { fullscreenButton.textContent = 'Agrandar no disponible'; }
+    if (expanded) { videoDialog.close(); return; }
+    phoneHome.style.minHeight = `${phoneHome.getBoundingClientRect().height}px`;
+    expanded = true;
+    const wasPlaying = !video.paused;
+    videoDialog.querySelector('.expanded-video-stage').append(phone);
+    videoDialog.showModal();
+    document.body.classList.add('video-expanded');
+    fullscreenButton.setAttribute('aria-label', 'Reducir video');
+    if (wasPlaying) startVideo();
+    videoDialog.querySelector('.video-dialog-close').focus();
   });
-  document.addEventListener('fullscreenchange', () => { video.controls = document.fullscreenElement === video; });
+  videoDialog.querySelector('.video-dialog-close').addEventListener('click', () => videoDialog.close());
+  videoDialog.addEventListener('click', event => { if (event.target === videoDialog) videoDialog.close(); });
+  videoDialog.addEventListener('close', () => {
+    const wasPlaying = !video.paused;
+    phoneHome.append(phone);
+    phoneHome.style.minHeight = '';
+    expanded = false;
+    document.body.classList.remove('video-expanded');
+    fullscreenButton.setAttribute('aria-label', 'Ampliar video');
+    if (wasPlaying) startVideo();
+    fullscreenButton.focus({ preventScroll: true });
+  });
   function loadVideo() {
     if (loaded) return;
     video.querySelector('source').src = video.querySelector('source').dataset.src;
@@ -158,17 +174,14 @@
     try { await video.play(); } catch { playButton.hidden = false; }
   }
   function syncVideo() {
-    if (visible && (!motionPaused || manualPlayback) && !userPaused && !document.hidden) startVideo();
+    if ((visible || expanded) && (!motionPaused || manualPlayback) && !userPaused && !document.hidden) startVideo();
     else if (!video.paused) { automaticPause = true; video.pause(); }
   }
   function updateMotion() {
     manualPlayback = false;
     root.classList.toggle('motion-paused', motionPaused);
-    motionControl.textContent = motionPaused ? 'Activar animaciones' : 'Pausar animaciones';
-    motionControl.setAttribute('aria-pressed', String(motionPaused));
     syncVideo();
   }
-  motionControl.addEventListener('click', () => { motionPaused = !motionPaused; updateMotion(); });
   reduced.addEventListener('change', () => { motionPaused = reduced.matches; updateMotion(); });
   updateMotion();
   new IntersectionObserver(entries => {
@@ -181,13 +194,13 @@
     if (video.paused) { userPaused = false; manualPlayback = true; startVideo(); }
     else { userPaused = true; video.pause(); }
   });
-  video.addEventListener('play', () => { playButton.hidden = true; demoControl.textContent = 'Pausar demo'; });
+  video.addEventListener('play', () => { playButton.hidden = true; demoControl.setAttribute('aria-label', 'Pausar demo'); demoControl.classList.add('is-playing'); });
   video.addEventListener('pause', () => {
-    demoControl.textContent = 'Reproducir demo';
+    demoControl.setAttribute('aria-label', 'Reproducir demo'); demoControl.classList.remove('is-playing');
     if (automaticPause) automaticPause = false;
     else { userPaused = true; manualPlayback = false; }
   });
-  video.addEventListener('error', () => { demoControl.textContent = 'Video no disponible'; demoControl.disabled = true; playButton.hidden = true; });
+  video.addEventListener('error', () => { demoControl.setAttribute('aria-label', 'Video no disponible'); demoControl.disabled = true; playButton.hidden = true; });
   const phaseStarts = [0, 3.8, 7.7, 10];
   function syncPhase() {
     const t = video.currentTime;
@@ -220,7 +233,7 @@
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } });
   }, { threshold: .1 });
-  document.querySelectorAll('.how-copy,.section-heading,.decision-card,.alert-card,.definition,.faq-heading').forEach((el, i) => {
+  document.querySelectorAll('.journey-step,.how-copy,.section-heading,.decision-card,.alert-card,.definition,.faq-heading').forEach((el, i) => {
     el.classList.add('reveal'); el.style.setProperty('--reveal-delay', `${i % 3 * 90}ms`); revealObserver.observe(el);
   });
   const chartCard = document.getElementById('chart-card');
@@ -244,27 +257,21 @@
   }
   updateThreshold();
 
-  const form = document.getElementById('wait-form');
-  const nameInput = document.getElementById('f-name');
-  const mailInput = document.getElementById('f-mail');
+  // Native POST preserves FormSubmit CAPTCHA and the automatic confirmation email.
+  const form = document.getElementById('pilot-form');
+  const submitButton = form.querySelector('button[type=submit]');
   const status = document.getElementById('form-status');
-  const inputs = [[nameInput, document.getElementById('e-name')], [mailInput, document.getElementById('e-mail')]];
-  function setError(input, box, message) {
-    box.textContent = message;
-    input.setAttribute('aria-invalid', String(Boolean(message)));
-  }
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    status.hidden = true;
-    const nameValid = nameInput.value.trim().length >= 2;
-    const mailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mailInput.value.trim());
-    setError(...inputs[0], nameValid ? '' : 'Escribe tu nombre (al menos 2 caracteres).');
-    setError(...inputs[1], mailValid ? '' : 'Escribe un correo electrónico válido.');
-    if (!nameValid || !mailValid) { (nameValid ? mailInput : nameInput).focus(); return; }
-    status.textContent = 'Demostración completada. No se enviaron ni guardaron datos y no se realizó ninguna inscripción.';
+  form.elements._next.value = new URL('inscripcion.html', location.href).href;
+  form.addEventListener('submit', () => {
+    submitButton.disabled = true;
+    status.textContent = 'Enviando tu solicitud… Completa la verificación si se solicita.';
     status.hidden = false;
-    form.reset();
-    status.focus({ preventScroll: true });
   });
-  inputs.forEach(([input, box]) => input.addEventListener('input', () => { setError(input, box, ''); status.hidden = true; }));
+  addEventListener('pageshow', () => { submitButton.disabled = false; status.hidden = true; });
+  const journey = document.querySelector('.journey');
+  const journeySteps = [...journey.querySelectorAll('.journey-step')];
+  journeySteps.forEach((step, i) => step.style.setProperty('--journey-delay', `${i * 220}ms`));
+  new IntersectionObserver(entries => {
+    for (const entry of entries) journey.classList.toggle('journey-running', entry.isIntersecting && !motionPaused);
+  }, { threshold: .25 }).observe(journey);
 })();

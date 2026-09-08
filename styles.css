@@ -1776,3 +1776,52 @@ body{font-size:18px}
 .benefit-example{min-height:140px;padding:14px 16px;gap:9px}
 .decision-card p{margin-top:16px;font-size:16px;line-height:1.6}
 @media(min-width:640px) and (max-width:899px){.decision-card .decision-question{margin-bottom:0}}
+
+/* Complete app journey and controls inside the video frame. */
+.demo-note{font-size:17px;line-height:1.7}
+.video-overlay-controls{position:absolute;left:12px;right:12px;bottom:12px;display:flex;justify-content:space-between;gap:12px;pointer-events:none}
+.video-icon-button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff55;border-radius:50%;background:#162b1deb;color:#fffdf7;pointer-events:auto;box-shadow:0 2px 8px #0003}
+.video-icon-button .icon{width:20px;height:20px}
+.video-icon-button .pause-glyph{display:none}
+.video-icon-button.is-playing .pause-glyph{display:block}
+.video-icon-button.is-playing .play-glyph{display:none}
+.video-icon-button:focus-visible{outline-color:#fffdf7}
+.demo-stage{padding-bottom:20px}
+.video-expanded{overflow:hidden}
+.video-dialog{border:1px solid var(--line);border-radius:18px;padding:58px 24px 20px;width:min(720px,calc(100vw - 24px));max-width:none;height:calc(100dvh - 24px);max-height:none;background:var(--bg);color:var(--fg);overflow:hidden}
+.video-dialog::backdrop{background:#07150ee8}
+.video-dialog-close{position:absolute;right:18px;top:9px;min-height:44px;background:transparent;border:0;color:var(--fg);font-size:16px;display:flex;align-items:center;gap:14px}
+.video-dialog-close span{font-size:26px}
+.expanded-video-stage{height:100%;display:flex;justify-content:center;align-items:center}
+.video-dialog .demo-phone{width:auto;height:100%;max-width:100%;aspect-ratio:576/1160;flex:none}
+.video-dialog .demo-phone video{width:100%;height:100%;object-fit:contain;aspect-ratio:auto}
+.journey{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
+.journey .section-heading{margin-bottom:26px}
+.journey h2{font-size:clamp(28px,3vw,36px)}
+.journey-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.journey-step{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:24px 18px 30px;border:1px solid var(--line);border-radius:12px;background:var(--bg);transition:transform .28s,box-shadow .28s,border-color .28s}
+.journey-step:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
+.journey-icon{width:46px;height:46px;display:grid;place-items:center;background:var(--gold);color:#2a2318;border-radius:14px}
+.journey-icon svg{width:23px;height:23px}
+.journey-step h3{font-size:18px;position:relative;z-index:1;line-height:1.4;max-width:12ch}
+.journey-number{position:absolute;right:12px;bottom:-10px;color:var(--gold);opacity:.18;font-size:74px;font-weight:800;line-height:1;pointer-events:none}
+@media(max-width:899px){.journey-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.journey{margin-top:44px}.demo-note{font-size:16px}}
+@media(max-width:639px){.journey-steps{grid-template-columns:1fr}.journey-step{flex-direction:row;align-items:center;padding:18px 22px;gap:20px}.journey-step h3{max-width:none}.journey-number{font-size:62px}.video-dialog{padding:56px 8px 12px}.demo-note{font-size:16px}}
+/* Decorative motion settles on its own; the demo retains an explicit pause control. */
+.hero-phone,.insight-card,.orbit-two,.hero-bridge a span{animation-iteration-count:2}
+
+.form-provider{margin-top:12px;font-size:12px}
+
+@media(prefers-reduced-motion:no-preference){
+.journey-running .journey-step{animation:journey-focus 1.8s ease both;animation-delay:var(--journey-delay)}
+.journey-running .journey-icon{animation:journey-icon-in .65s ease both;animation-delay:var(--journey-delay)}
+@keyframes journey-focus{0%{border-color:var(--line);transform:translateY(10px)}35%{border-color:var(--gold);box-shadow:0 6px 22px #dca23a22;transform:translateY(-4px)}100%{border-color:var(--line);transform:none}}
+@keyframes journey-icon-in{0%{transform:scale(.8) rotate(-10deg)}60%{transform:scale(1.12) rotate(4deg)}100%{transform:none}}
+}
+.signup-confirmation{min-height:100dvh;display:grid;place-items:center;padding:30px 20px;background:radial-gradient(ellipse at top,var(--green-soft),transparent 70%),var(--bg)}
+.signup-card{width:min(620px,100%);padding:clamp(26px,5vw,52px);border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow)}
+.signup-card h1{font-size:clamp(30px,5vw,44px);margin:28px 0 20px}
+.signup-card p{font-size:18px;color:var(--muted);line-height:1.7}
+.signup-card .button{margin-top:28px}
+.signup-card .micro{font-size:14px;margin-top:16px}
+button:disabled{cursor:wait;opacity:.7}
