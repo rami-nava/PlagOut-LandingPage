@@ -131,13 +131,34 @@
   const phases = [...document.querySelectorAll('[data-demo-phase]')];
   let loaded = false, visible = false, userPaused = false, manualPlayback = false, automaticPause = false;
   video.muted = true;
-  // Keep playback controls outside the picture: native hover overlays shade the recording.
+  // Custom controls avoid native overlays shading the recording.
   // The video also stays out of opacity/transform entrance animations.
   video.controls = false;
   const fullscreenButton = document.getElementById('demo-fullscreen');
   const videoDialog = document.getElementById('video-dialog');
   const phone = document.querySelector('.demo-phone');
   const phoneHome = phone.parentElement;
+  // Keep a separate poster over the decoder surface until a frame is presented.
+  const loadingPoster = phone.querySelector('.demo-loading-poster');
+  video.addEventListener('playing', () => {
+    const revealFrame = () => { loadingPoster.hidden = true; };
+    if ('requestVideoFrameCallback' in video) video.requestVideoFrameCallback(revealFrame);
+    else requestAnimationFrame(() => requestAnimationFrame(revealFrame));
+  }, { once: true });
+  let controlsTimer;
+  function revealTouchControls() {
+    clearTimeout(controlsTimer);
+    phone.classList.add('controls-visible');
+    controlsTimer = setTimeout(() => phone.classList.remove('controls-visible'), 3000);
+  }
+  phone.addEventListener('pointerup', event => {
+    if (event.pointerType === 'mouse') return;
+    if (event.target.closest('button')) { revealTouchControls(); return; }
+    if (phone.classList.contains('controls-visible')) {
+      clearTimeout(controlsTimer);
+      phone.classList.remove('controls-visible');
+    } else revealTouchControls();
+  });
   let expanded = false;
   fullscreenButton.addEventListener('click', async () => {
     if (expanded) { videoDialog.close(); return; }
@@ -201,10 +222,10 @@
     else { userPaused = true; manualPlayback = false; }
   });
   video.addEventListener('error', () => { demoControl.setAttribute('aria-label', 'Video no disponible'); demoControl.disabled = true; playButton.hidden = true; });
-  const phaseStarts = [0, 3.8, 7.7, 10];
+  const phaseStarts = [0, 5, 12, 22.75];
   function syncPhase() {
     const t = video.currentTime;
-    const phase = t < 3.8 ? 0 : t < 7.7 ? 1 : t < 10 ? 2 : 3;
+    const phase = Math.max(0, phaseStarts.findLastIndex(start => t >= start));
     phases.forEach((item, i) => {
       item.classList.toggle('is-active', i === phase);
       const button = item.querySelector('button');

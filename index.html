@@ -14,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>try{const t=localStorage.getItem('plagout-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch{}</script>
-  <link rel="stylesheet" href="styles.css?v=20260908-7">
-  <script src="app.js?v=6995d4b9f348" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260909-video2">
+  <script src="app.js?v=20260909-video2" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -83,15 +83,15 @@
             <li data-demo-phase="0" class="is-active"><button class="step-button" type="button" aria-controls="app-demo" aria-label="Ver paso 1: Explora tus terrenos"><span class="step-number">01</span><span class="step-copy"><span class="step-title">Explora tus terrenos</span><span class="step-description">Consulta la información de cada lote.</span></span><span class="step-play" aria-hidden="true">↗</span></button></li>
             <li data-demo-phase="1"><button class="step-button" type="button" aria-controls="app-demo" aria-label="Ver paso 2: Consulta tus cultivos"><span class="step-number">02</span><span class="step-copy"><span class="step-title">Consulta tus cultivos</span><span class="step-description">Revisa qué crece en tu terreno.</span></span><span class="step-play" aria-hidden="true">↗</span></button></li>
             <li data-demo-phase="2"><button class="step-button" type="button" aria-controls="app-demo" aria-label="Ver paso 3: Revisa tus monitoreos"><span class="step-number">03</span><span class="step-copy"><span class="step-title">Revisa tus monitoreos</span><span class="step-description">Encuentra las plagas que estás siguiendo.</span></span><span class="step-play" aria-hidden="true">↗</span></button></li>
-            <li data-demo-phase="3"><button class="step-button" type="button" aria-controls="app-demo" aria-label="Ver paso 4: Entiende cada aviso"><span class="step-number">04</span><span class="step-copy"><span class="step-title">Entiende cada aviso</span><span class="step-description">Consulta los GDD y el nivel de riesgo.</span></span><span class="step-play" aria-hidden="true">↗</span></button></li>
+            <li data-demo-phase="3"><button class="step-button" type="button" aria-controls="app-demo" aria-label="Ver paso 4: Consulta los reportes"><span class="step-number">04</span><span class="step-copy"><span class="step-title">Consulta los reportes</span><span class="step-description">Revisa las observaciones y su ubicación en el mapa.</span></span><span class="step-play" aria-hidden="true">↗</span></button></li>
           </ol>
-          <div class="demo-note"><svg class="icon"><use href="#i-play"/></svg><p><strong>Un recorrido real por tu campo</strong><br>Explora un terreno, su cultivo y sus monitoreos.</p></div>
+          <div class="demo-note"><svg class="icon"><use href="#i-play"/></svg><p><strong>Un recorrido real por tu campo</strong><br>Explora tus terrenos, ajusta tus monitoreos y consulta los reportes.</p></div>
         </div>
         <div class="demo-panel">
           <div class="demo-panel-top"><span class="eyebrow">Dentro de Plag-Out</span></div>
           <div class="demo-stage">
             <div class="demo-phone phone">
-              <video id="app-demo" width="576" height="1160" controls muted loop playsinline preload="none" poster="assets/demo-portada.webp" aria-label="Demostración de Plag-Out: terrenos, cultivos y monitoreos" aria-describedby="demo-description"><source data-src="assets/demo.mp4" type="video/mp4">Tu navegador no admite video. El recorrido muestra cómo consultar un terreno, abrir su cultivo y revisar el monitoreo de una plaga.</video>
+              <video id="app-demo" width="576" height="1160" controls muted loop playsinline preload="none" poster="assets/demo-recorrido-v2.webp" aria-label="Demostración de Plag-Out: terrenos, cultivos, monitoreos y reportes" aria-describedby="demo-description"><source data-src="assets/demo-recorrido-v2.mp4" type="video/mp4">Tu navegador no admite video. El recorrido muestra cómo consultar un terreno, abrir su cultivo, ajustar un monitoreo y consultar reportes en el mapa.</video><img class="demo-loading-poster" src="assets/demo-recorrido-v2.webp" alt="" aria-hidden="true" width="576" height="1160">
               <button type="button" class="demo-play" id="demo-play" aria-label="Reproducir demo de la app"><svg class="icon"><use href="#i-play"/></svg><span>Ver demo</span></button>
               <div class="video-overlay-controls"><button class="video-icon-button" id="demo-control" type="button" aria-label="Reproducir demo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path class="pause-glyph" d="M8 5v14M16 5v14"/><path class="play-glyph" d="m8 5 11 7-11 7Z"/></svg></button><button class="video-icon-button" id="demo-fullscreen" type="button" aria-label="Ampliar video"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div>
             </div>

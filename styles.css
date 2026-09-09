@@ -1828,3 +1828,20 @@ button:disabled{cursor:wait;opacity:.7}
 
 /* Keep the subtle hero motion looping. */
 .hero-phone,.insight-card,.orbit-two{animation-iteration-count:infinite}
+
+/* Reveal player controls on intent, including keyboard navigation. */
+.video-overlay-controls{opacity:0;transition:opacity .18s ease}
+.video-overlay-controls .video-icon-button{pointer-events:none}
+.demo-phone.controls-visible .video-overlay-controls,
+.demo-phone:has(.video-icon-button:focus-visible) .video-overlay-controls{opacity:1}
+.demo-phone.controls-visible .video-icon-button,
+.demo-phone .video-icon-button:focus-visible{pointer-events:auto}
+@media(hover:hover) and (pointer:fine){
+  .demo-phone:hover .video-overlay-controls{opacity:1}
+  .demo-phone:hover .video-icon-button{pointer-events:auto}
+}
+@media(prefers-reduced-motion:reduce){.video-overlay-controls{transition:none}}
+
+.demo-phone .demo-loading-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none}
+.demo-phone .demo-loading-poster[hidden]{display:none}
+.video-overlay-controls,.demo-play{z-index:2}
