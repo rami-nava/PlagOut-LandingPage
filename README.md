@@ -24,3 +24,7 @@ Documentación: https://formsubmit.co/
 ## Recursos
 
 La demo y sus portadas están en `assets/`. Los archivos originales de videos y presentación permanecen intactos. El recorrido de cinco pasos se recuperó de la versión original y se adaptó a español latinoamericano.
+
+## Enlace al panel de administración
+
+El pie de página tiene un enlace “Administración” al panel web (`PlagOut-AdminWeb`). Su URL está en un único lugar de `index.html` (buscar “URL del panel admin”). En esta rama apunta al panel local (`http://127.0.0.1:3000/login`): no mergear a `main` hasta reemplazarla por la URL publicada del panel.
