@@ -24,3 +24,7 @@ Documentación: https://formsubmit.co/
 ## Recursos
 
 La demo y sus portadas están en `assets/`. Los archivos originales de videos y presentación permanecen intactos. El recorrido de cinco pasos se recuperó de la versión original y se adaptó a español latinoamericano.
+
+## Enlace al panel de administración
+
+El pie de página tiene un enlace “Administración” al panel web (`PlagOut-AdminWeb`). Su URL (`https://plag-out-admin.vercel.app/login`) está en un único lugar de `index.html` (buscar “URL del panel admin”).
